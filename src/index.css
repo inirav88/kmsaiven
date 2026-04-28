@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Saiven Realty Brand Colors */
+    --color-primary: #DC2125;
+    --color-primary-dark: #B91C1F;
+    --color-secondary: #222120;
+    --color-accent: #E9781D;
+    --color-background: #FFFFFF;
+    --color-surface: #F8F7F4;
+    --color-text-primary: #222120;
+    --color-text-secondary: #6B6B6B;
+    --color-text-muted: #9A9A9A;
+
+    /* Font families */
+    --font-heading: "Playfair Display", Georgia, serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+
+    /* shadcn/ui theme mapping */
+    --background: 0 0% 100%;
+    --foreground: 30 3% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 3% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 3% 13%;
+    --primary: 359 79% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 5% 96%;
+    --secondary-foreground: 30 3% 13%;
+    --muted: 40 5% 96%;
+    --muted-foreground: 0 0% 42%;
+    --accent: 27 82% 51%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 10% 90%;
+    --input: 30 10% 90%;
+    --ring: 359 79% 50%;
+    --radius: 0.625rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 30 3% 26%;
+    --sidebar-primary: 359 79% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 5% 96%;
+    --sidebar-accent-foreground: 30 3% 13%;
+    --sidebar-border: 30 10% 91%;
+    --sidebar-ring: 359 79% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
