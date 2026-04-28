@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post Your Requirement — Saiven Realty</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0f14;
+    --ink2: #1c2030;
+    --ink3: #2c3148;
+    --surface: #f7f5f0;
+    --surface2: #eeeae2;
+    --gold: #c9a84c;
+    --gold2: #e8c96e;
+    --gold-light: #f5e9c8;
+    --white: #ffffff;
+    --muted: #7a7d8a;
+    --border: #e2ddd5;
+    --danger: #c0392b;
+    --success: #1a7a4a;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --shadow: 0 4px 32px rgba(13,15,20,.08);
+    --shadow-lg: 0 12px 60px rgba(13,15,20,.15);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO SECTION ─── */
+  .hero {
+    background: var(--ink);
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(201,168,76,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(201,168,76,.15);
+    border: 1px solid rgba(201,168,76,.35);
+    border-radius: 30px;
+    padding: 5px 14px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--gold2);
+    letter-spacing: .5px;
+    margin-bottom: 20px;
+    position: relative;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold2);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    color: var(--white);
+    text-align: center;
+    line-height: 1.12;
+    letter-spacing: -.5px;
+    position: relative;
+    animation: fadeUp .7s .1s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold2);
+  }
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,.55);
+    text-align: center;
+    margin-top: 12px;
+    font-weight: 300;
+    max-width: 440px;
+    line-height: 1.6;
+    position: relative;
+    animation: fadeUp .8s .2s ease both;
+  }
+  .hero-curve {
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 50px;
+    background: var(--surface);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ─── TRUST STRIP ─── */
+  .trust-strip {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 20px 20px 0;
+    animation: fadeUp .9s .3s ease both;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .trust-icon {
+    width: 20px; height: 20px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+  }
+
+  /* ─── MAIN FORM CONTAINER ─── */
+  .form-wrap {
+    max-width: 740px;
+    margin: 36px auto 60px;
+    padding: 0 16px;
+    animation: fadeUp 1s .2s ease both;
+  }
+
+  /* ─── STEP PROGRESS ─── */
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 32px;
+    padding: 0 4px;
+  }
+  .prog-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+  }
+  .prog-step::after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    left: 50%;
+    right: -50%;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+    transition: background .4s;
+  }
+  .prog-step:last-child::after { display: none; }
+  .prog-step.done::after { background: var(--gold); }
+  .prog-dot {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+    transition: all .3s;
+  }
+  .prog-step.active .prog-dot {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--white);
+    box-shadow: 0 0 0 5px rgba(201,168,76,.18);
+  }
+  .prog-step.done .prog-dot {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--white);
+  }
+  .prog-label {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    transition: color .3s;
+  }
+  .prog-step.active .prog-label { color: var(--ink); font-weight: 500; }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .card-header {
+    padding: 28px 32px 22px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #fdfcfa 0%, #f8f5ee 100%);
+  }
+  .step-counter {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .card-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .card-header p {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 5px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .card-body { padding: 28px 32px 32px; }
+
+  /* ─── STEPS (show/hide) ─── */
+  .step-panel { display: none; }
+  .step-panel.active {
+    display: block;
+    animation: stepIn .35s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes stepIn { from{opacity:0;transform:translateX(24px)} to{opacity:1;transform:translateX(0)} }
+  .step-panel.leaving {
+    animation: stepOut .25s ease both;
+    pointer-events: none;
+  }
+  @keyframes stepOut { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(-24px)} }
+
+  /* ─── OPTION CARDS (pill/card selectors) ─── */
+  .opt-grid { display: grid; gap: 10px; }
+  .opt-grid.cols2 { grid-template-columns: 1fr 1fr; }
+  .opt-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+  .opt-grid.cols4 { grid-template-columns: repeat(4, 1fr); }
+  .opt-grid.cols5 { grid-template-columns: repeat(5, 1fr); }
+  .opt-card {
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--white);
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .opt-card:hover {
+    border-color: var(--gold);
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+  .opt-card.selected {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, var(--gold-light), #fef9ed);
+    box-shadow: 0 0 0 3px rgba(201,168,76,.2);
+  }
+  .opt-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 8px; right: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .opt-icon { font-size: 22px; line-height: 1; }
+  .opt-title { font-size: 13.5px; font-weight: 500; color: var(--ink); }
+  .opt-sub { font-size: 11px; color: var(--muted); font-weight: 300; }
+
+  /* ─── PILL CHIPS ─── */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    padding: 7px 16px;
+    border-radius: 30px;
+    border: 1.5px solid var(--border);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .18s;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--white);
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--gold); color: var(--ink); background: var(--gold-light); }
+  .chip.selected {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  /* ─── FORM FIELDS ─── */
+  .field-group { margin-bottom: 22px; }
+  .field-row { display: grid; gap: 14px; margin-bottom: 22px; }
+  .field-row.cols2 { grid-template-columns: 1fr 1fr; }
+  .field-row.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+  label.field-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: .3px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+  label.field-label span { color: var(--danger); margin-left: 2px; }
+  input[type=text], input[type=tel], input[type=email], input[type=number], select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color .2s, box-shadow .2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a7d8a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+
+  /* ─── RANGE SLIDER ─── */
+  .range-wrap { position: relative; padding: 8px 0; }
+  .range-track {
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    position: relative;
+    margin: 16px 0;
+  }
+  .range-fill {
+    position: absolute;
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    top: 0;
+  }
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    position: absolute;
+    top: 0; left: 0;
+    margin: 0; padding: 0;
+    border: none;
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2.5px solid var(--gold);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    margin-top: -8px;
+    transition: transform .15s;
+  }
+  input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .range-value {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .range-val-box {
+    flex: 1;
+    padding: 9px 12px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    text-align: center;
+  }
+  .range-val-box small {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 1px;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .section-divider {
+    border: none;
+    border-top: 1px dashed var(--border);
+    margin: 22px 0;
+  }
+  .section-heading {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── TOGGLE ─── */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-info { font-size: 13.5px; color: var(--ink); font-weight: 400; }
+  .toggle-info small { display: block; font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .tog {
+    width: 44px; height: 24px;
+    background: var(--border);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background .25s;
+    flex-shrink: 0;
+  }
+  .tog.on { background: var(--gold); }
+  .tog::after {
+    content: '';
+    width: 18px; height: 18px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px; left: 3px;
+    transition: transform .25s;
+    box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  }
+  .tog.on::after { transform: translateX(20px); }
+
+  /* ─── LOCALITY TAGS ─── */
+  .locality-input-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    min-height: 48px;
+    align-items: center;
+    cursor: text;
+    transition: border-color .2s;
+  }
+  .locality-input-wrap:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,.15); }
+  .locality-tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--gold-light);
+    border: 1px solid rgba(201,168,76,.4);
+    color: var(--ink);
+    border-radius: 20px;
+    padding: 3px 10px 3px 12px;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+  .locality-tag button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    display: flex; align-items: center;
+  }
+  .locality-tag button:hover { color: var(--danger); }
+  .locality-input {
+    border: none; outline: none;
+    font-size: 13.5px;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    min-width: 120px;
+    flex: 1;
+    color: var(--ink);
+    padding: 0;
+  }
+  .locality-dropdown {
+    position: absolute;
+    z-index: 99;
+    background: var(--white);
+    border: 1.5px solid var(--gold);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    top: calc(100% + 6px);
+    left: 0;
+    display: none;
+  }
+  .locality-dropdown.open { display: block; }
+  .loc-opt {
+    padding: 9px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background .15s;
+    color: var(--ink);
+  }
+  .loc-opt:hover { background: var(--gold-light); }
+  .locality-wrap { position: relative; }
+
+  /* ─── COUNTER ─── */
+  .counter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .counter-row:last-child { border-bottom: none; }
+  .counter-label { font-size: 13.5px; color: var(--ink); }
+  .counter-controls { display: flex; align-items: center; gap: 12px; }
+  .ctr-btn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--ink);
+    transition: all .18s;
+    line-height: 1;
+    user-select: none;
+  }
+  .ctr-btn:hover { border-color: var(--gold); background: var(--gold-light); }
+  .ctr-val { font-size: 15px; font-weight: 500; min-width: 24px; text-align: center; }
+
+  /* ─── BUTTONS ─── */
+  .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; gap: 12px; }
+  .btn-back {
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    cursor: pointer;
+    font-weight: 400;
+    transition: all .2s;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-next {
+    padding: 14px 32px;
+    border-radius: 30px;
+    border: none;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all .22s;
+    display: flex; align-items: center; gap: 8px;
+    letter-spacing: .2px;
+    box-shadow: 0 4px 20px rgba(13,15,20,.25);
+  }
+  .btn-next:hover {
+    background: var(--ink2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(13,15,20,.3);
+  }
+  .btn-next.gold-btn {
+    background: var(--gold);
+    box-shadow: 0 4px 20px rgba(201,168,76,.35);
+  }
+  .btn-next.gold-btn:hover {
+    background: #b8962e;
+    box-shadow: 0 8px 28px rgba(201,168,76,.45);
+  }
+  .btn-step-note { font-size: 11.5px; color: var(--muted); }
+
+  /* ─── SUCCESS STATE ─── */
+  .success-panel {
+    display: none;
+    text-align: center;
+    padding: 48px 40px;
+    animation: fadeUp .6s ease both;
+  }
+  .success-panel.show { display: block; }
+  .success-ring {
+    width: 72px; height: 72px;
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 22px;
+    box-shadow: 0 0 0 12px rgba(201,168,76,.12);
+  }
+  .success-panel h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .success-panel p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 340px;
+    margin: 0 auto 24px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .ticket-box {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 18px 24px;
+    margin: 20px auto;
+    max-width: 300px;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .ticket-id {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
+    font-family: 'DM Sans', monospace;
+    letter-spacing: 2px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media(max-width:620px) {
+    .card-header, .card-body { padding: 20px; }
+    .opt-grid.cols3 { grid-template-columns: 1fr 1fr; }
+    .opt-grid.cols4 { grid-template-columns: repeat(2, 1fr); }
+    .opt-grid.cols5 { grid-template-columns: repeat(2, 1fr); }
+    .field-row.cols2 { grid-template-columns: 1fr; }
+    .field-row.cols3 { grid-template-columns: 1fr 1fr; }
+    .btn-step-note { display: none; }
+    .progress-bar { gap: 0; padding: 0; }
+    .prog-label { font-size: 9px; }
+  }
+  @media(max-width:480px) {
+    .opt-grid.cols2 { grid-template-columns: 1fr; }
+  }
+
+  /* ─── MISC ─── */
+  .req-badge {
+    display: inline-block;
+    background: #fff8ec;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,.35);
+    border-radius: 20px;
+    font-size: 10.5px;
+    padding: 2px 8px;
+    font-weight: 500;
+    margin-left: 6px;
+    letter-spacing: .3px;
+    vertical-align: middle;
+  }
+  .helper { font-size: 11px; color: var(--muted); margin-top: 5px; }
+  .field-note {
+    background: var(--gold-light);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .conditional { display: none; }
+  .conditional.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-badge">🔍 Property Requirement</div>
+  <h1>Tell us what you're<br><em>looking for</em></h1>
+  <p>Can't find your dream property? Submit your exact requirement and our experts will match you within 24 hours.</p>
+  <div class="hero-curve"></div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-icon">✓</div>
+    Free service
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">⏱</div>
+    24-hr response
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">🔒</div>
+    100% privacy
+  </div>
+  <div class="trust-item">
+    <div class="trust-icon">📞</div>
+    Expert matching
+  </div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="form-wrap">
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progressBar">
+    <div class="prog-step active" data-step="1" onclick="goToStep(1)">
+      <div class="prog-dot">1</div>
+      <div class="prog-label">Purpose</div>
+    </div>
+    <div class="prog-step" data-step="2" onclick="goToStep(2)">
+      <div class="prog-dot">2</div>
+      <div class="prog-label">Property</div>
+    </div>
+    <div class="prog-step" data-step="3" onclick="goToStep(3)">
+      <div class="prog-dot">3</div>
+      <div class="prog-label">Location</div>
+    </div>
+    <div class="prog-step" data-step="4" onclick="goToStep(4)">
+      <div class="prog-dot">4</div>
+      <div class="prog-label">Budget</div>
+    </div>
+    <div class="prog-step" data-step="5" onclick="goToStep(5)">
+      <div class="prog-dot">5</div>
+      <div class="prog-label">Preferences</div>
+    </div>
+    <div class="prog-step" data-step="6" onclick="goToStep(6)">
+      <div class="prog-dot">6</div>
+      <div class="prog-label">Contact</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <!-- ════════ STEP 1 — PURPOSE ════════ -->
+    <div id="step1" class="step-panel active">
+      <div class="card-header">
+        <div class="step-counter">Step 1 of 6</div>
+        <h2>What are you looking for?</h2>
+        <p>Tell us the purpose and broad category — this shapes everything that follows.</p>
+      </div>
+      <div class="card-body">
+        <div class="section-heading">I want to</div>
+        <div class="opt-grid cols3" id="purposeGrid">
+          <div class="opt-card selected" data-group="purpose" data-val="buy" onclick="selectOpt(this,'purpose')">
+            <div class="opt-icon">🏠</div>
+            <div class="opt-title">Buy</div>
+            <div class="opt-sub">Purchase a property</div>
+          </div>
+          <div class="opt-card" data-group="purpose" data-val="rent" onclick="selectOpt(this,'purpose')">
+            <div class="opt-icon">🔑</div>
+            <div class="opt-title">Rent</div>
+            <div class="opt-sub">Take on rent / lease</div>
+          </div>
+          <div class="opt-card" data-group="purpose" data-val="pg" onclick="selectOpt(this,'purpose')">
+            <div class="opt-icon">🛏</div>
+            <div class="opt-title">PG / Co-living</div>
+            <div class="opt-sub">Furnished room / hostel</div>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Property category</div>
+        <div class="opt-grid cols4" id="categoryGrid">
+          <div class="opt-card selected" data-group="category" data-val="residential" onclick="selectOpt(this,'category');toggleCatFields()">
+            <div class="opt-icon">🏘</div>
+            <div class="opt-title">Residential</div>
+            <div class="opt-sub">Flat, villa, house</div>
+          </div>
+          <div class="opt-card" data-group="category" data-val="commercial" onclick="selectOpt(this,'category');toggleCatFields()">
+            <div class="opt-icon">🏢</div>
+            <div class="opt-title">Commercial</div>
+            <div class="opt-sub">Office, shop, warehouse</div>
+          </div>
+          <div class="opt-card" data-group="category" data-val="plot" onclick="selectOpt(this,'category');toggleCatFields()">
+            <div class="opt-icon">📐</div>
+            <div class="opt-title">Plot / Land</div>
+            <div class="opt-sub">Residential or commercial</div>
+          </div>
+          <div class="opt-card" data-group="category" data-val="agri" onclick="selectOpt(this,'category');toggleCatFields()">
+            <div class="opt-icon">🌾</div>
+            <div class="opt-title">Agricultural</div>
+            <div class="opt-sub">Farm, orchard, agri land</div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <span class="btn-step-note">Step 1 of 6</span>
+          <button class="btn-next" onclick="goToStep(2)">Continue <span>→</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 2 — PROPERTY TYPE ════════ -->
+    <div id="step2" class="step-panel">
+      <div class="card-header">
+        <div class="step-counter">Step 2 of 6</div>
+        <h2>Property type & configuration</h2>
+        <p>Select the specific type and, for residential, your preferred BHK configuration.</p>
+      </div>
+      <div class="card-body">
+        <!-- Residential sub-types -->
+        <div id="resTypes">
+          <div class="section-heading">Select type</div>
+          <div class="chips" id="propTypeChips">
+            <div class="chip selected" data-group="proptype" onclick="selectChip(this,'proptype')">Flat / Apartment</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Independent House</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Villa / Bungalow</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Builder Floor</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Penthouse</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Studio Apartment</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Row House</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Farm House</div>
+            <div class="chip" data-group="proptype" onclick="selectChip(this,'proptype')">Serviced Apartment</div>
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-heading">BHK configuration <small style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0">(select all that are ok)</small></div>
+          <div class="chips" id="bhkChips">
+            <div class="chip" data-group="bhk" onclick="selectMultiChip(this,'bhk')">Studio</div>
+            <div class="chip" data-group="bhk" onclick="selectMultiChip(this,'bhk')">1 BHK</div>
+            <div class="chip selected" data-group="bhk" onclick="selectMultiChip(this,'bhk')">2 BHK</div>
+            <div class="chip selected" data-group="bhk" onclick="selectMultiChip(this,'bhk')">3 BHK</div>
+            <div class="chip" data-group="bhk" onclick="selectMultiChip(this,'bhk')">4 BHK</div>
+            <div class="chip" data-group="bhk" onclick="selectMultiChip(this,'bhk')">4+ BHK</div>
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-heading">Carpet area requirement</div>
+          <div class="field-row cols3">
+            <div>
+              <label class="field-label">Min area</label>
+              <input type="number" placeholder="e.g. 800" id="areaMin">
+            </div>
+            <div>
+              <label class="field-label">Max area</label>
+              <input type="number" placeholder="e.g. 1500" id="areaMax">
+            </div>
+            <div>
+              <label class="field-label">Unit</label>
+              <select>
+                <option>sq.ft</option>
+                <option>sq.yd</option>
+                <option>sq.m</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Commercial sub-types -->
+        <div id="comTypes" style="display:none">
+          <div class="section-heading">Select type</div>
+          <div class="chips">
+            <div class="chip selected">Office Space</div>
+            <div class="chip">Shop</div>
+            <div class="chip">Showroom</div>
+            <div class="chip">Godown / Warehouse</div>
+            <div class="chip">Industrial Shed</div>
+            <div class="chip">Co-working Space</div>
+            <div class="chip">Retail Complex</div>
+            <div class="chip">Hotel / Resort</div>
+          </div>
+          <hr class="section-divider">
+          <div class="section-heading">Office / carpet area</div>
+          <div class="field-row cols3">
+            <div><label class="field-label">Min area</label><input type="number" placeholder="e.g. 500"></div>
+            <div><label class="field-label">Max area</label><input type="number" placeholder="e.g. 5000"></div>
+            <div><label class="field-label">Unit</label><select><option>sq.ft</option><option>sq.m</option></select></div>
+          </div>
+        </div>
+
+        <!-- Plot sub-types -->
+        <div id="plotTypes" style="display:none">
+          <div class="section-heading">Plot category</div>
+          <div class="chips">
+            <div class="chip selected">Residential Plot</div>
+            <div class="chip">Commercial Plot</div>
+            <div class="chip">Industrial Plot</div>
+            <div class="chip">Corner Plot</div>
+            <div class="chip">NA Plot</div>
+          </div>
+          <hr class="section-divider">
+          <div class="field-row cols2">
+            <div><label class="field-label">Min plot area</label><input type="number" placeholder="e.g. 200"></div>
+            <div><label class="field-label">Area unit</label><select><option>sq.yd</option><option>sq.ft</option><option>sq.m</option><option>bigha</option><option>guntha</option></select></div>
+          </div>
+        </div>
+
+        <!-- Agri sub-types -->
+        <div id="agriTypes" style="display:none">
+          <div class="section-heading">Agricultural land type</div>
+          <div class="chips">
+            <div class="chip selected">Farm Land</div>
+            <div class="chip">Orchard / Plantation</div>
+            <div class="chip">Agri-business Land</div>
+            <div class="chip">Farm House Plot</div>
+          </div>
+          <hr class="section-divider">
+          <div class="field-row cols2">
+            <div><label class="field-label">Min area</label><input type="number" placeholder="e.g. 2"></div>
+            <div><label class="field-label">Unit</label><select><option>acres</option><option>bigha</option><option>hectare</option><option>guntha</option></select></div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(1)">← Back</button>
+          <button class="btn-next" onclick="goToStep(3)">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 3 — LOCATION ════════ -->
+    <div id="step3" class="step-panel">
+      <div class="card-header">
+        <div class="step-counter">Step 3 of 6</div>
+        <h2>Preferred location</h2>
+        <p>Where exactly are you looking? Add multiple localities — we'll match across all of them.</p>
+      </div>
+      <div class="card-body">
+        <div class="field-group">
+          <label class="field-label">City <span>*</span></label>
+          <select id="citySelect" onchange="updateLocalities()">
+            <option value="">— Select city —</option>
+            <option value="gandhinagar" selected>Gandhinagar</option>
+            <option value="ahmedabad">Ahmedabad</option>
+            <option value="anand">Anand</option>
+            <option value="mehsana">Mehsana</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field-group locality-wrap">
+          <label class="field-label">Preferred localities <span>*</span></label>
+          <div class="locality-input-wrap" id="localityWrap" onclick="document.getElementById('localityInput').focus()">
+            <div class="locality-tag">Kudasan <button onclick="removeLocality(this)" type="button">×</button></div>
+            <div class="locality-tag">Sargasan <button onclick="removeLocality(this)" type="button">×</button></div>
+            <input type="text" class="locality-input" id="localityInput" placeholder="Type locality name..." oninput="filterLocalities(this.value)" onfocus="showLocDrop()" onblur="setTimeout(hideLocDrop,200)">
+          </div>
+          <div class="helper">Add up to 5 preferred localities. Type to search.</div>
+          <div class="locality-dropdown" id="localityDrop"></div>
+        </div>
+
+        <div class="section-heading">Quick pick — popular localities</div>
+        <div class="chips" id="quickLocs">
+          <div class="chip" onclick="addLocChip('Koba')">Koba</div>
+          <div class="chip" onclick="addLocChip('GIFT City')">GIFT City</div>
+          <div class="chip" onclick="addLocChip('Raysan')">Raysan</div>
+          <div class="chip" onclick="addLocChip('Infocity')">Infocity</div>
+          <div class="chip" onclick="addLocChip('Vavol')">Vavol</div>
+          <div class="chip" onclick="addLocChip('Sector 6')">Sector 6</div>
+          <div class="chip" onclick="addLocChip('SG Highway')">SG Highway</div>
+          <div class="chip" onclick="addLocChip('Randesan')">Randesan</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Search radius</div>
+        <div class="chips" id="radiusChips">
+          <div class="chip" onclick="selectChip(this,'radius')">0.5 km</div>
+          <div class="chip selected" onclick="selectChip(this,'radius')">1 km</div>
+          <div class="chip" onclick="selectChip(this,'radius')">2 km</div>
+          <div class="chip" onclick="selectChip(this,'radius')">5 km</div>
+          <div class="chip" onclick="selectChip(this,'radius')">10 km</div>
+          <div class="chip" onclick="selectChip(this,'radius')">Any radius</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Location preferences</div>
+        <div class="toggle-row">
+          <div class="toggle-info">Vastu-compliant property only
+            <small>Will filter non-compliant listings</small>
+          </div>
+          <div class="tog" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Near highway / main road
+            <small>Arterial road access priority</small>
+          </div>
+          <div class="tog" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Corner / end plot preferred</div>
+          <div class="tog" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Flexible on location
+            <small>Open to anywhere in the city</small>
+          </div>
+          <div class="tog" onclick="this.classList.toggle('on')"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(2)">← Back</button>
+          <button class="btn-next" onclick="goToStep(4)">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 4 — BUDGET ════════ -->
+    <div id="step4" class="step-panel">
+      <div class="card-header">
+        <div class="step-counter">Step 4 of 6</div>
+        <h2>Budget & financial details</h2>
+        <p>Set your comfortable budget range — properties within 10% will also be shown.</p>
+      </div>
+      <div class="card-body">
+        <div class="section-heading">Budget range</div>
+        <!-- Buy budget -->
+        <div id="buyBudget">
+          <div class="range-wrap">
+            <div class="range-track">
+              <div class="range-fill" id="buyFill" style="left:15%;right:40%"></div>
+              <input type="range" id="buyMin" min="5" max="500" value="25" step="5" oninput="updateBuyRange()">
+              <input type="range" id="buyMax" min="5" max="500" value="80" step="5" oninput="updateBuyRange()" style="pointer-events:none;position:absolute;opacity:0">
+            </div>
+            <div class="range-labels">
+              <span>₹5 L</span>
+              <span>₹1 Cr</span>
+              <span>₹2 Cr</span>
+              <span>₹5 Cr+</span>
+            </div>
+          </div>
+          <div class="range-value">
+            <div class="range-val-box"><small>Min budget</small><span id="buyMinLbl">₹25 L</span></div>
+            <div class="range-val-box"><small>Max budget</small><span id="buyMaxLbl">₹80 L</span></div>
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-heading">Quick budget select</div>
+          <div class="chips">
+            <div class="chip" onclick="setBuyBudget(this,'25','50')">Under ₹50 L</div>
+            <div class="chip" onclick="setBuyBudget(this,'50','75')">₹50–75 L</div>
+            <div class="chip selected" onclick="setBuyBudget(this,'75','100')">₹75 L – 1 Cr</div>
+            <div class="chip" onclick="setBuyBudget(this,'100','150')">₹1–1.5 Cr</div>
+            <div class="chip" onclick="setBuyBudget(this,'150','250')">₹1.5–2.5 Cr</div>
+            <div class="chip" onclick="setBuyBudget(this,'250','500')">Above ₹2.5 Cr</div>
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-heading">Home loan</div>
+          <div class="toggle-row">
+            <div class="toggle-info">I require home loan assistance
+              <small>We'll connect you with bank partners — SBI, HDFC, ICICI</small>
+            </div>
+            <div class="tog" id="loanTog" onclick="this.classList.toggle('on');toggleLoanFields()"></div>
+          </div>
+          <div id="loanFields" class="conditional">
+            <div class="field-row cols2" style="margin-top:14px">
+              <div>
+                <label class="field-label">Monthly income (₹)</label>
+                <input type="number" placeholder="e.g. 75000">
+              </div>
+              <div>
+                <label class="field-label">Loan amount needed</label>
+                <input type="number" placeholder="e.g. 50,00,000">
+              </div>
+            </div>
+            <div class="field-row cols2">
+              <div>
+                <label class="field-label">Employment type</label>
+                <select>
+                  <option>Salaried</option>
+                  <option>Self-employed / Business</option>
+                  <option>NRI</option>
+                  <option>Freelancer / Consultant</option>
+                </select>
+              </div>
+              <div>
+                <label class="field-label">Preferred bank</label>
+                <select>
+                  <option>No preference</option>
+                  <option>SBI</option>
+                  <option>HDFC Bank</option>
+                  <option>ICICI Bank</option>
+                  <option>Axis Bank</option>
+                  <option>LIC Housing</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <hr class="section-divider">
+          <div class="section-heading">Additional cost preferences</div>
+          <div class="toggle-row">
+            <div class="toggle-info">Price negotiable</div>
+            <div class="tog on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">No brokerage / zero brokerage only</div>
+            <div class="tog" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+
+        <!-- Rent budget -->
+        <div id="rentBudget" style="display:none">
+          <div class="section-heading">Monthly rent range</div>
+          <div class="chips">
+            <div class="chip">Under ₹8,000</div>
+            <div class="chip selected">₹8,000–15,000</div>
+            <div class="chip">₹15,000–25,000</div>
+            <div class="chip">₹25,000–50,000</div>
+            <div class="chip">₹50,000+</div>
+          </div>
+          <hr class="section-divider">
+          <div class="field-row cols2" style="margin-top:8px">
+            <div><label class="field-label">Min monthly rent (₹)</label><input type="number" placeholder="8000"></div>
+            <div><label class="field-label">Max monthly rent (₹)</label><input type="number" placeholder="15000"></div>
+          </div>
+          <div class="field-row cols2">
+            <div>
+              <label class="field-label">Max deposit willing to pay</label>
+              <select>
+                <option>1 month rent</option>
+                <option>2 months rent</option>
+                <option>3 months rent</option>
+                <option>Any amount</option>
+              </select>
+            </div>
+            <div>
+              <label class="field-label">Lease tenure needed</label>
+              <select>
+                <option>6 months</option>
+                <option>11 months</option>
+                <option>1 year</option>
+                <option>2 years</option>
+                <option>Long-term / indefinite</option>
+              </select>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-info">Maintenance charges included in rent
+              <small>Only show all-inclusive listings</small>
+            </div>
+            <div class="tog" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(3)">← Back</button>
+          <button class="btn-next" onclick="goToStep(5)">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 5 — PREFERENCES ════════ -->
+    <div id="step5" class="step-panel">
+      <div class="card-header">
+        <div class="step-counter">Step 5 of 6</div>
+        <h2>Detailed preferences</h2>
+        <p>The more you tell us, the better we can match. All fields are optional but helpful.</p>
+      </div>
+      <div class="card-body">
+        <div class="section-heading">Possession & timeline</div>
+        <div class="opt-grid cols3" id="possessionGrid">
+          <div class="opt-card selected" data-group="possession" onclick="selectOpt(this,'possession')">
+            <div class="opt-icon">✅</div>
+            <div class="opt-title">Ready to move</div>
+            <div class="opt-sub">Immediate possession</div>
+          </div>
+          <div class="opt-card" data-group="possession" onclick="selectOpt(this,'possession')">
+            <div class="opt-icon">🏗</div>
+            <div class="opt-title">Under construction</div>
+            <div class="opt-sub">New project OK</div>
+          </div>
+          <div class="opt-card" data-group="possession" onclick="selectOpt(this,'possession')">
+            <div class="opt-icon">🔄</div>
+            <div class="opt-title">Any / flexible</div>
+            <div class="opt-sub">No preference</div>
+          </div>
+        </div>
+
+        <div class="field-group" style="margin-top:18px">
+          <label class="field-label">When do you need it by?</label>
+          <div class="chips">
+            <div class="chip selected" onclick="selectChip(this,'timeline')">Immediately</div>
+            <div class="chip" onclick="selectChip(this,'timeline')">Within 1 month</div>
+            <div class="chip" onclick="selectChip(this,'timeline')">1–3 months</div>
+            <div class="chip" onclick="selectChip(this,'timeline')">3–6 months</div>
+            <div class="chip" onclick="selectChip(this,'timeline')">6+ months</div>
+            <div class="chip" onclick="selectChip(this,'timeline')">Just exploring</div>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Furnishing & condition</div>
+        <div class="chips">
+          <div class="chip" onclick="selectChip(this,'furnish')">Unfurnished</div>
+          <div class="chip selected" onclick="selectChip(this,'furnish')">Semi-furnished</div>
+          <div class="chip" onclick="selectChip(this,'furnish')">Fully furnished</div>
+          <div class="chip" onclick="selectChip(this,'furnish')">Any</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Floors acceptable <small style="font-size:10px;font-weight:400;text-transform:none;letter-spacing:0">(multi-select)</small></div>
+        <div class="chips">
+          <div class="chip" onclick="selectMultiChip(this,'floor')">Ground floor</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'floor')">Low (1–4)</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'floor')">Mid (5–10)</div>
+          <div class="chip" onclick="selectMultiChip(this,'floor')">High (10+)</div>
+          <div class="chip" onclick="selectMultiChip(this,'floor')">Top floor</div>
+          <div class="chip" onclick="selectMultiChip(this,'floor')">Any floor</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Must-have amenities</div>
+        <div class="chips" id="amenityChips">
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Lift</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Parking</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'amenity')">Security</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Swimming pool</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Gymnasium</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'amenity')">Power backup</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Club house</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Kids' play area</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Gated community</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Gas pipeline (PNG)</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">CCTV</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Water treatment plant</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">EV charging</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Solar panels</div>
+          <div class="chip" onclick="selectMultiChip(this,'amenity')">Vastu compliant</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Parking requirement</div>
+        <div class="field-row cols2">
+          <div>
+            <label class="field-label">4-wheeler parking needed</label>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:2px">
+              <div class="ctr-btn" onclick="counter('park4w',-1)">−</div>
+              <div class="ctr-val" id="park4w">1</div>
+              <div class="ctr-btn" onclick="counter('park4w',1)">+</div>
+            </div>
+          </div>
+          <div>
+            <label class="field-label">2-wheeler parking needed</label>
+            <div style="display:flex;align-items:center;gap:10px;margin-top:2px">
+              <div class="ctr-btn" onclick="counter('park2w',-1)">−</div>
+              <div class="ctr-val" id="park2w">1</div>
+              <div class="ctr-btn" onclick="counter('park2w',1)">+</div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Facing preference</div>
+        <div class="chips">
+          <div class="chip" onclick="selectMultiChip(this,'facing')">East</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'facing')">North</div>
+          <div class="chip" onclick="selectMultiChip(this,'facing')">North-East</div>
+          <div class="chip" onclick="selectMultiChip(this,'facing')">West</div>
+          <div class="chip" onclick="selectMultiChip(this,'facing')">South</div>
+          <div class="chip" onclick="selectMultiChip(this,'facing')">Any direction</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Tenant / buyer profile</div>
+        <div class="field-row cols2">
+          <div>
+            <label class="field-label">Who will stay / use?</label>
+            <select>
+              <option>Family</option>
+              <option>Couple</option>
+              <option>Bachelor (Male)</option>
+              <option>Bachelor (Female)</option>
+              <option>Company / Corporate</option>
+              <option>NRI / Investor</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Number of family members</label>
+            <select>
+              <option>1 person</option>
+              <option>2 persons</option>
+              <option>3–4 persons</option>
+              <option>5–6 persons</option>
+              <option>7+ persons</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Additional requirements / notes</label>
+          <textarea placeholder="e.g. Need near schools, quiet neighbourhood, no top floor, RERA registered project only, corner unit preferred…" style="min-height:90px"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(4)">← Back</button>
+          <button class="btn-next" onclick="goToStep(6)">Continue →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ STEP 6 — CONTACT ════════ -->
+    <div id="step6" class="step-panel">
+      <div class="card-header">
+        <div class="step-counter">Step 6 of 6</div>
+        <h2>Your contact details</h2>
+        <p>How should our team reach you? We'll only contact you about your requirement.</p>
+      </div>
+      <div class="card-body">
+        <div class="field-note">
+          🔒 Your information is private. We will never share it with third parties or spam you with irrelevant listings.
+        </div>
+
+        <div class="field-row cols2">
+          <div>
+            <label class="field-label">Full name <span>*</span></label>
+            <input type="text" id="fname" placeholder="Your full name">
+          </div>
+          <div>
+            <label class="field-label">Mobile number <span>*</span></label>
+            <input type="tel" id="fmobile" placeholder="+91 98765 43210">
+          </div>
+        </div>
+
+        <div class="field-row cols2">
+          <div>
+            <label class="field-label">Email address</label>
+            <input type="email" id="femail" placeholder="your@email.com">
+          </div>
+          <div>
+            <label class="field-label">WhatsApp number</label>
+            <input type="tel" id="fwhatsapp" placeholder="Same as mobile if blank">
+          </div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Communication preferences</div>
+        <div class="toggle-row">
+          <div class="toggle-info">Receive updates on WhatsApp
+            <small>Get matching properties directly on WhatsApp</small>
+          </div>
+          <div class="tog on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Receive email alerts</div>
+          <div class="tog on" onclick="this.classList.toggle('on')"></div>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Allow phone call follow-up</div>
+          <div class="tog on" onclick="this.classList.toggle('on')"></div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Preferred call time</div>
+        <div class="chips">
+          <div class="chip" onclick="selectMultiChip(this,'calltime')">Morning (9–12)</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'calltime')">Afternoon (12–4)</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'calltime')">Evening (4–8)</div>
+          <div class="chip" onclick="selectMultiChip(this,'calltime')">Anytime</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">Language preference</div>
+        <div class="chips">
+          <div class="chip selected" onclick="selectMultiChip(this,'lang')">Gujarati</div>
+          <div class="chip selected" onclick="selectMultiChip(this,'lang')">Hindi</div>
+          <div class="chip" onclick="selectMultiChip(this,'lang')">English</div>
+        </div>
+
+        <hr class="section-divider">
+        <div class="section-heading">How did you hear about us?</div>
+        <div class="field-group">
+          <select>
+            <option>— Select source —</option>
+            <option>Google search</option>
+            <option>WhatsApp</option>
+            <option>Instagram / Facebook</option>
+            <option>Friend / Referral</option>
+            <option>99acres</option>
+            <option>Housing.com</option>
+            <option>MagicBricks</option>
+            <option>Newspaper / Hoarding</option>
+            <option>Site visit / Walk-in</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:13px;color:var(--muted)">
+            <input type="checkbox" checked style="margin-top:2px;accent-color:var(--gold);width:auto">
+            I agree to the <span style="color:var(--gold);margin:0 3px">Terms & Conditions</span> and consent to being contacted by Saiven Realty regarding this requirement.
+          </label>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-back" onclick="goToStep(5)">← Back</button>
+          <button class="btn-next gold-btn" onclick="submitForm()">Submit Requirement 🏠</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ SUCCESS ════════ -->
+    <div id="successPanel" class="success-panel">
+      <div class="success-ring">✓</div>
+      <h2>Requirement submitted!</h2>
+      <p>Our team has received your requirement and will reach out within 24 hours with matching properties.</p>
+      <div class="ticket-box">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px">Your reference ID</div>
+        <div class="ticket-id" id="ticketId">SR-00000</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">Save this ID for follow-up queries</div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+        <a href="https://wa.me/919876543210?text=Hi, my requirement reference is " id="waLink" style="display:inline-flex;align-items:center;gap:7px;padding:11px 22px;background:#25d366;color:white;border-radius:30px;text-decoration:none;font-size:13.5px;font-weight:500">
+          💬 Chat on WhatsApp
+        </a>
+        <button onclick="resetForm()" style="padding:11px 22px;background:transparent;border:1.5px solid var(--border);border-radius:30px;font-size:13.5px;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink)">Submit another</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 6;
+  const counterVals = { park4w: 1, park2w: 1 };
+  const localities = ['Kudasan', 'Sargasan'];
+  const localityDB = {
+    gandhinagar: ['Kudasan','Sargasan','Koba','GIFT City','Raysan','Infocity','Vavol','Sector 1','Sector 6','Sector 7','Sector 21','Randesan','Pethapur','Dahegam'],
+    ahmedabad: ['Bopal','Prahlad Nagar','Satellite','Navrangpura','Vastrapur','Maninagar','Gota','Thaltej','Science City','Prahladnagar','SG Highway','Chandkheda','Nikol','Naranpura']
+  };
+  let currentLocalities = [...localities];
+
+  function goToStep(n) {
+    if (n < 1 || n > totalSteps) return;
+    const cur = document.getElementById('step'+currentStep);
+    cur.classList.remove('active');
+    cur.classList.add('leaving');
+    setTimeout(()=>{ cur.classList.remove('leaving'); }, 300);
+    currentStep = n;
+    const nxt = document.getElementById('step'+currentStep);
+    nxt.classList.add('active');
+    document.querySelectorAll('.prog-step').forEach((el,i)=>{
+      el.classList.remove('active','done');
+      if(i+1 < currentStep) el.classList.add('done');
+      if(i+1 === currentStep) el.classList.add('active');
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+    // sync budget display with purpose
+    syncBudget();
+  }
+
+  function syncBudget() {
+    const purpose = getSelected('purpose');
+    const buyBudget = document.getElementById('buyBudget');
+    const rentBudget = document.getElementById('rentBudget');
+    if (!buyBudget || !rentBudget) return;
+    if (purpose === 'rent' || purpose === 'pg') {
+      buyBudget.style.display = 'none';
+      rentBudget.style.display = 'block';
+    } else {
+      buyBudget.style.display = 'block';
+      rentBudget.style.display = 'none';
+    }
+  }
+
+  function selectOpt(el, group) {
+    document.querySelectorAll(`[data-group="${group}"]`).forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function selectChip(el, group) {
+    el.closest('.chips').querySelectorAll('.chip').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function selectMultiChip(el, group) {
+    el.classList.toggle('selected');
+  }
+
+  function getSelected(group) {
+    const el = document.querySelector(`[data-group="${group}"].selected`);
+    return el ? el.dataset.val || el.textContent.trim() : null;
+  }
+
+  function toggleCatFields() {
+    const cat = getSelected('category');
+    document.getElementById('resTypes').style.display = cat==='residential'?'block':'none';
+    document.getElementById('comTypes').style.display = cat==='commercial'?'block':'none';
+    document.getElementById('plotTypes').style.display = cat==='plot'?'block':'none';
+    document.getElementById('agriTypes').style.display = cat==='agri'?'block':'none';
+  }
+
+  function counter(id, d) {
+    counterVals[id] = Math.max(0, (counterVals[id]||0) + d);
+    document.getElementById(id).textContent = counterVals[id];
+  }
+
+  function updateBuyRange() {
+    const v = parseInt(document.getElementById('buyMin').value);
+    const pct = ((v-5)/(500-5))*100;
+    document.getElementById('buyMinLbl').textContent = v >= 100 ? '₹'+(v/100).toFixed(1)+' Cr' : '₹'+v+' L';
+  }
+
+  function setBuyBudget(el, min, max) {
+    el.closest('.chips').querySelectorAll('.chip').forEach(e=>e.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function toggleLoanFields() {
+    const on = document.getElementById('loanTog').classList.contains('on');
+    const f = document.getElementById('loanFields');
+    f.classList.toggle('show', on);
+  }
+
+  // Localities
+  function filterLocalities(q) {
+    const city = document.getElementById('citySelect').value || 'gandhinagar';
+    const all = localityDB[city] || localityDB.gandhinagar;
+    const filtered = all.filter(l => l.toLowerCase().includes(q.toLowerCase()) && !currentLocalities.includes(l));
+    const drop = document.getElementById('localityDrop');
+    if (!q && filtered.length === 0) { drop.classList.remove('open'); return; }
+    drop.innerHTML = (q ? filtered : all.filter(l => !currentLocalities.includes(l))).map(l => `<div class="loc-opt" onmousedown="addLocality('${l}')">${l}</div>`).join('') || '<div class="loc-opt" style="color:var(--muted)">No matches</div>';
+    drop.classList.add('open');
+  }
+
+  function showLocDrop() {
+    filterLocalities(document.getElementById('localityInput').value);
+  }
+  function hideLocDrop() {
+    document.getElementById('localityDrop').classList.remove('open');
+  }
+
+  function addLocality(name) {
+    if (currentLocalities.includes(name)) return;
+    currentLocalities.push(name);
+    renderLocalities();
+    document.getElementById('localityInput').value = '';
+    document.getElementById('localityDrop').classList.remove('open');
+  }
+
+  function addLocChip(name) { addLocality(name); }
+
+  function removeLocality(btn) {
+    const tag = btn.closest('.locality-tag');
+    const name = tag.firstChild.textContent.trim();
+    currentLocalities = currentLocalities.filter(l => l !== name);
+    renderLocalities();
+  }
+
+  function renderLocalities() {
+    const wrap = document.getElementById('localityWrap');
+    const input = document.getElementById('localityInput');
+    const existing = wrap.querySelectorAll('.locality-tag');
+    existing.forEach(t => t.remove());
+    currentLocalities.forEach(name => {
+      const tag = document.createElement('div');
+      tag.className = 'locality-tag';
+      tag.innerHTML = `${name} <button onclick="removeLocality(this)" type="button">×</button>`;
+      wrap.insertBefore(tag, input);
+    });
+  }
+
+  function updateLocalities() {
+    currentLocalities = [];
+    renderLocalities();
+  }
+
+  function submitForm() {
+    const ticketNum = 'SR-' + Math.floor(10000 + Math.random() * 90000);
+    document.getElementById('ticketId').textContent = ticketNum;
+    document.getElementById('waLink').href = `https://wa.me/919876543210?text=Hi, my requirement reference is ${ticketNum}`;
+    // Hide all steps
+    for(let i=1;i<=6;i++) document.getElementById('step'+i).classList.remove('active');
+    document.getElementById('successPanel').classList.add('show');
+    document.querySelector('.progress-bar').style.display = 'none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function resetForm() {
+    document.getElementById('successPanel').classList.remove('show');
+    document.querySelector('.progress-bar').style.display = 'flex';
+    currentStep = 1;
+    goToStep(1);
+  }
+
+  // Init
+  toggleCatFields();
+</script>
+</body>
+</html>

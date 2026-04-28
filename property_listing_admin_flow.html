@@ -1,0 +1,354 @@
+
+<h2 class="sr-only">Interactive property listing admin panel flow — 13 steps from creation to publishing</h2>
+<style>
+.snav{overflow-y:auto;flex-shrink:0}
+.si{display:flex;align-items:flex-start;gap:8px;padding:8px 14px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;font-size:12.5px;color:var(--color-text-secondary);line-height:1.3}
+.si:hover{background:var(--color-background-secondary);color:var(--color-text-primary)}
+.si.act{border-left:2px solid var(--color-text-info);background:var(--color-background-info);color:var(--color-text-info);font-weight:500}
+.snum{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;background:var(--color-border-tertiary);color:var(--color-text-secondary);flex-shrink:0;margin-top:1px}
+.si.act .snum{background:var(--color-text-info);color:#fff}
+.si.done .snum{background:var(--color-text-success);color:#fff}
+.phase-label{font-size:10px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:.6px;padding:10px 14px 4px;text-transform:uppercase}
+.ftag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11.5px;border:0.5px solid var(--color-border-secondary);margin:3px 3px 0 0;color:var(--color-text-secondary)}
+.fgroup{margin-bottom:18px}
+.fgroup-title{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.5px;margin:0 0 8px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.frow{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);gap:10px}
+.frow:last-child{border-bottom:none}
+.fname{font-size:13px;color:var(--color-text-primary);flex:1;line-height:1.4}
+.fnote{display:block;font-size:11px;color:var(--color-text-tertiary);margin-top:2px}
+.fopts{margin-top:5px}
+.ftype{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--color-background-secondary);color:var(--color-text-secondary);white-space:nowrap;flex-shrink:0;margin-top:2px}
+.req{color:var(--color-text-danger);font-size:10px;font-weight:500;margin-left:4px;vertical-align:middle}
+.branch-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.branch-col{border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px 14px;background:var(--color-background-secondary)}
+.branch-col h4{font-size:12.5px;font-weight:500;margin:0 0 8px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.bitem{font-size:12px;padding:3px 0;color:var(--color-text-secondary);display:flex;align-items:center;gap:6px}
+.bitem::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--color-border-primary);flex-shrink:0}
+.nbtn{padding:6px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);cursor:pointer;font-size:13px;color:var(--color-text-primary);transition:all .15s}
+.nbtn:hover{background:var(--color-background-secondary)}
+.nbtn:disabled{opacity:.35;cursor:default}
+.nbtn.pri{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
+.stepr{font-size:11px;padding:2px 7px;border-radius:10px;font-weight:500}
+.stepr.res{background:var(--color-background-info);color:var(--color-text-info)}
+.stepr.com{background:var(--color-background-warning);color:var(--color-text-warning)}
+.stepr.plot{background:var(--color-background-success);color:var(--color-text-success)}
+</style>
+
+<div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;background:var(--color-background-primary);display:flex;flex-direction:column">
+  <div style="padding:11px 16px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;background:var(--color-background-secondary)">
+    <div>
+      <div style="font-size:14px;font-weight:500;color:var(--color-text-primary)">Property listing — admin panel flow</div>
+      <div id="slbl" style="font-size:11.5px;color:var(--color-text-secondary);margin-top:1px">Step 1 of 13</div>
+    </div>
+    <div style="display:flex;gap:3px;align-items:center" id="pdots"></div>
+  </div>
+  <div style="display:flex;min-height:420px;max-height:460px">
+    <div class="snav" style="width:180px;border-right:0.5px solid var(--color-border-tertiary);max-height:460px" id="sidebar"></div>
+    <div style="flex:1;padding:18px 22px;overflow-y:auto;max-height:460px" id="content"></div>
+  </div>
+  <div style="padding:10px 16px;border-top:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center;background:var(--color-background-secondary)">
+    <button class="nbtn" id="pbtn" onclick="nav(-1)">← Previous</button>
+    <span style="font-size:11px;color:var(--color-text-tertiary)" id="progpct"></span>
+    <button class="nbtn pri" id="nbtn" onclick="nav(1)">Next step →</button>
+  </div>
+</div>
+
+<script>
+const phases=[
+  {label:"Listing basics",steps:[1,2,3]},
+  {label:"Location & details",steps:[4,5,6]},
+  {label:"Pricing & amenities",steps:[7,8,9]},
+  {label:"Media & legal",steps:[10,11]},
+  {label:"Contact & publish",steps:[12,13]}
+];
+const steps=[
+  {id:1,title:"Listing purpose",desc:"What is this property being listed for?",groups:[
+    {t:"Select listing type",fields:[
+      {n:"Listing type",tp:"Radio",req:true,opts:["For Sale","For Rent","For Lease","PG / Co-living","New Project / Pre-launch"]}
+    ]}
+  ]},
+  {id:2,title:"Property category",desc:"Select the broad category first — sub-types branch from here",groups:[
+    {t:"Select category",fields:[
+      {n:"Property category",tp:"Radio",req:true,opts:["Residential","Commercial","Plot / Land","Agricultural"]}
+    ]}
+  ]},
+  {id:3,title:"Property sub-type",desc:"Branches based on category selected in step 2",special:"subtypes",branches:{
+    "Residential":["Flat / Apartment","Independent House / Villa","Builder Floor","Penthouse","Studio Apartment","Row House / Townhouse","Bungalow","Farm House","Serviced Apartment","Co-living / Hostel"],
+    "Commercial":["Office Space","Shop","Showroom","Godown / Warehouse","Industrial Shed","Co-working Space","Hotel / Resort","Cold Storage","Commercial Complex","Petrol Pump / Land"],
+    "Plot / Land":["Residential Plot","Commercial Plot","Industrial Plot","Agricultural Land","Farm Land / Farm House Plot"],
+    "Agricultural":["Farm Land","Orchard / Plantation","Agri-business Land","Forest / Timber Land"]
+  }},
+  {id:4,title:"Location details",desc:"Precise address, map pin, and floor information",groups:[
+    {t:"Address",fields:[
+      {n:"Building / Society / Project name",tp:"Text",req:true},
+      {n:"Street / Area",tp:"Text",req:true},
+      {n:"Locality",tp:"Autocomplete",req:true,note:"e.g. Sargasan, Kudasan, Koba, GIFT City, Raysan"},
+      {n:"Sub-locality",tp:"Text",note:"Sector, Phase, Block name"},
+      {n:"City",tp:"Dropdown",req:true},
+      {n:"State",tp:"Dropdown",req:true},
+      {n:"Pin code",tp:"Number",req:true},
+      {n:"Nearest landmark",tp:"Text"}
+    ]},
+    {t:"Map pin",fields:[
+      {n:"Map location picker",tp:"Map / GPS",note:"Drag pin to exact property — saves latitude & longitude"},
+      {n:"Latitude",tp:"Auto-fill from map"},
+      {n:"Longitude",tp:"Auto-fill from map"}
+    ]},
+    {t:"Floor info (apartments only)",fields:[
+      {n:"Property on floor no.",tp:"Number",note:"0 = Ground floor"},
+      {n:"Total floors in building",tp:"Number"},
+      {n:"Tower / Block / Wing",tp:"Text",note:"e.g. Tower A, Wing B"}
+    ]}
+  ]},
+  {id:5,title:"Property configuration",desc:"Area, rooms, orientation, and parking",groups:[
+    {t:"Area",fields:[
+      {n:"Super built-up area",tp:"Number + Unit",req:true},
+      {n:"Built-up area",tp:"Number + Unit"},
+      {n:"Carpet area (RERA)",tp:"Number + Unit",note:"Mandatory if RERA registered"},
+      {n:"Plot / land area",tp:"Number + Unit",note:"For plots, farm houses"},
+      {n:"Area unit",tp:"Select",opts:["sq.ft","sq.yd","sq.m","acres","bigha","guntha","hectare"]}
+    ]},
+    {t:"Room config (residential)",fields:[
+      {n:"BHK configuration",tp:"Select",opts:["Studio","1 BHK","1.5 BHK","2 BHK","2.5 BHK","3 BHK","3.5 BHK","4 BHK","4+ BHK","5+ BHK"]},
+      {n:"Bedrooms",tp:"Counter"},
+      {n:"Bathrooms",tp:"Counter"},
+      {n:"Balconies",tp:"Counter"},
+      {n:"Study / Puja / Servant room",tp:"Toggle"}
+    ]},
+    {t:"Commercial specs",fields:[
+      {n:"Washrooms / toilets",tp:"Counter"},
+      {n:"Ceiling height (ft)",tp:"Number"},
+      {n:"Frontage width (ft)",tp:"Number"},
+      {n:"Loading / unloading dock",tp:"Toggle"},
+      {n:"No. of cabins / partitions",tp:"Counter"}
+    ]},
+    {t:"Orientation & parking",fields:[
+      {n:"Property facing",tp:"Select",opts:["East","West","North","South","NE","NW","SE","SW"]},
+      {n:"Covered parking — 4-wheeler",tp:"Counter"},
+      {n:"Open parking — 4-wheeler",tp:"Counter"},
+      {n:"2-wheeler parking",tp:"Counter"},
+      {n:"Corner / end unit property",tp:"Toggle"}
+    ]}
+  ]},
+  {id:6,title:"Condition & utilities",desc:"Age, furnishing, flooring, and utility connections",groups:[
+    {t:"Status & possession",fields:[
+      {n:"Possession status",tp:"Radio",req:true,opts:["Ready to move","Under construction","New / pre-launch"]},
+      {n:"Available from (date)",tp:"Date",note:"For rental listings"},
+      {n:"Age of property",tp:"Select",opts:["New construction","< 1 year","1–3 years","3–5 years","5–10 years","10–20 years","20+ years"]}
+    ]},
+    {t:"Interior",fields:[
+      {n:"Furnishing status",tp:"Radio",opts:["Unfurnished","Semi-furnished","Fully furnished"]},
+      {n:"Flooring type",tp:"Select",opts:["Vitrified tiles","Marble","Granite","Wooden / laminate","IPS / Kota stone","Cement"]},
+      {n:"No. of open sides",tp:"Select",opts:["1 side","2 sides","3 sides","4 sides (corner)"]},
+      {n:"Vastu compliant",tp:"Toggle"}
+    ]},
+    {t:"Utilities",fields:[
+      {n:"Water supply",tp:"Checkbox",opts:["Municipal / GWSSB","Borewell","Both","Tanker backup"]},
+      {n:"Power backup",tp:"Select",opts:["Full backup","Partial backup","DG set","Solar","None"]},
+      {n:"Gas connection",tp:"Select",opts:["Pipeline (PNG)","Cylinder (LPG)","Both","None"]},
+      {n:"Lift / elevator",tp:"Select",opts:["Yes — passenger","Yes — goods lift too","No"]},
+      {n:"Broadband / internet ready",tp:"Toggle"}
+    ]}
+  ]},
+  {id:7,title:"Pricing details",desc:"Sale price, rent, deposit, brokerage, and loan info",groups:[
+    {t:"Sale price",fields:[
+      {n:"Expected price (₹)",tp:"Currency",req:true},
+      {n:"Price per sq.ft",tp:"Auto-calculated",note:"Calculated from total price ÷ carpet area"},
+      {n:"Price negotiable",tp:"Toggle"},
+      {n:"All-inclusive price",tp:"Toggle",note:"Includes parking, furniture, GST"},
+      {n:"Stamp duty payable by",tp:"Select",opts:["Buyer","Seller","Shared 50–50","To be discussed"]},
+      {n:"Loan available",tp:"Toggle"},
+      {n:"Approved by banks",tp:"Checkbox",opts:["SBI","HDFC","ICICI","Axis Bank","LIC Housing","PNB Housing","Others"]}
+    ]},
+    {t:"Rent / lease",fields:[
+      {n:"Monthly rent (₹)",tp:"Currency",req:true},
+      {n:"Security deposit (₹)",tp:"Currency"},
+      {n:"Deposit equivalent to",tp:"Select",opts:["1 month","2 months","3 months","6 months","Fixed amount"]},
+      {n:"Maintenance charges (₹/month)",tp:"Number"},
+      {n:"Maintenance included in rent",tp:"Toggle"},
+      {n:"Lock-in period (months)",tp:"Number"},
+      {n:"Lease duration (months)",tp:"Number"}
+    ]},
+    {t:"PG / Co-living",fields:[
+      {n:"Monthly rent (₹)",tp:"Currency"},
+      {n:"Occupancy type",tp:"Checkbox",opts:["Single","Double","Triple","Dormitory"]},
+      {n:"Preferred tenants",tp:"Checkbox",opts:["Male","Female","Any / Family"]},
+      {n:"Meals available",tp:"Toggle"},
+      {n:"Meal plan",tp:"Checkbox",opts:["Breakfast","Lunch","Dinner","All 3 meals"]}
+    ]},
+    {t:"Brokerage",fields:[
+      {n:"Brokerage applicable",tp:"Toggle"},
+      {n:"Brokerage amount (₹ or %)",tp:"Number"},
+      {n:"Brokerage payable by",tp:"Select",opts:["Buyer / Tenant","Owner / Seller","Shared"]}
+    ]}
+  ]},
+  {id:8,title:"Society amenities",desc:"Common facilities available in the building or complex",groups:[
+    {t:"Security",fields:[
+      {n:"Security features",tp:"Checkbox",opts:["24/7 security guards","CCTV surveillance","Gated community","Intercom","Video door phone","Visitor management system","Fire safety / sprinklers"]}
+    ]},
+    {t:"Recreation & fitness",fields:[
+      {n:"Recreational amenities",tp:"Checkbox",opts:["Swimming pool","Gymnasium / fitness center","Clubhouse","Badminton court","Tennis court","Basketball court","Indoor games room","Kids' play area","Jogging track","Cycling track","Party hall / banquet hall","Rooftop terrace","Amphitheater","Spa / sauna"]}
+    ]},
+    {t:"Utilities & infrastructure",fields:[
+      {n:"Utility amenities",tp:"Checkbox",opts:["Power backup — full","Water treatment plant / STP","Rainwater harvesting","Solar panels","EV charging points","Gas pipeline (PNG)","Goods lift","Waste compactor / management","Senior citizen area"]}
+    ]},
+    {t:"Green & certified",fields:[
+      {n:"Green / certification features",tp:"Checkbox",opts:["Landscaped garden","Organic waste converter","IGBC certified","LEED certified","Eco-friendly building","GRIHA certified"]}
+    ]}
+  ]},
+  {id:9,title:"Unit features",desc:"Internal furnishings and fittings inside the property unit",groups:[
+    {t:"Kitchen",fields:[
+      {n:"Kitchen features",tp:"Checkbox",opts:["Modular kitchen","Chimney / hood","Hob / cooktop","Built-in microwave","Dishwasher","Water purifier / RO","Exhaust fan"]}
+    ]},
+    {t:"Bedroom & living",fields:[
+      {n:"Living / bedroom items",tp:"Checkbox",opts:["Air conditioning — all rooms","Air conditioning — master only","Built-in wardrobes","Beds","Sofa set","Dining table + chairs","TV","DTH / cable TV","WiFi pre-wired"]}
+    ]},
+    {t:"Appliances & electrical",fields:[
+      {n:"Appliances provided",tp:"Checkbox",opts:["Geyser — all bathrooms","Washing machine","Refrigerator","Inverter / UPS","Smart home automation","Solar water heater","Security alarm / RFID door lock"]}
+    ]}
+  ]},
+  {id:10,title:"Media upload",desc:"Photos, video, virtual tour, floor plan, and brochures",groups:[
+    {t:"Photos (required)",fields:[
+      {n:"Property photos",tp:"Multi-image upload",req:true,note:"Min 3 · Max 25 · JPG / PNG / WEBP · 5 MB each max"},
+      {n:"Photo room tags",tp:"Checkbox",opts:["Living room","Master bedroom","Bedroom 2 / 3","Kitchen","Bathroom","Balcony / terrace","Exterior / building","Main entrance","Parking area","View from window","Society area"]},
+      {n:"Cover / thumbnail photo",tp:"Select from uploaded",req:true}
+    ]},
+    {t:"Video & virtual tour",fields:[
+      {n:"Property walkthrough video",tp:"Upload or URL",note:"YouTube / Vimeo link or direct MP4 — max 100 MB"},
+      {n:"360° virtual tour",tp:"Upload or URL",note:"Matterport / Kuula / custom 360° link"}
+    ]},
+    {t:"Documents",fields:[
+      {n:"Floor plan",tp:"Image / PDF",note:"Architectural or builder-provided plan"},
+      {n:"Project brochure",tp:"PDF upload",note:"Publicly visible"},
+      {n:"Site layout plan",tp:"Image upload"},
+      {n:"Property documents (private)",tp:"PDF upload",note:"Not shown publicly — admin verification only"}
+    ]}
+  ]},
+  {id:11,title:"Legal & RERA",desc:"Regulatory compliance, approvals, and property legal status",groups:[
+    {t:"RERA details",fields:[
+      {n:"RERA registered project",tp:"Toggle",req:true},
+      {n:"RERA registration number",tp:"Text",req:true,note:"e.g. PR/GJ/GANDHINAGAR/…"},
+      {n:"RERA portal URL",tp:"URL",note:"Direct link on rera.gujrera.in or state portal"},
+      {n:"RERA certificate",tp:"PDF upload"}
+    ]},
+    {t:"Approvals & certificates",fields:[
+      {n:"Occupancy certificate (OC)",tp:"Select",opts:["Received","Applied / pending","Not yet applied","Not applicable"]},
+      {n:"Completion certificate (CC)",tp:"Select",opts:["Received","Applied / pending","Not applicable"]},
+      {n:"NA order / commencement cert.",tp:"Toggle"},
+      {n:"Environmental clearance",tp:"Toggle"},
+      {n:"Fire NOC",tp:"Toggle"}
+    ]},
+    {t:"Title & ownership",fields:[
+      {n:"Property tax status",tp:"Select",opts:["Fully paid / up to date","Pending clearance","Not applicable"]},
+      {n:"Encumbrance / mortgage",tp:"Select",opts:["Clear title","Under bank mortgage","Court order pending","To be clarified"]},
+      {n:"Ownership type",tp:"Select",opts:["Freehold","Leasehold","Co-op housing society","GIDC / AUDA / GDUDA plot"]},
+      {n:"Society formed",tp:"Toggle"},
+      {n:"Total units in project",tp:"Number"},
+      {n:"Units already sold / occupied",tp:"Number"}
+    ]}
+  ]},
+  {id:12,title:"Contact & agent",desc:"Who is listing this property and how to reach them",groups:[
+    {t:"Listed by",fields:[
+      {n:"Listing posted by",tp:"Radio",req:true,opts:["Owner (self-listing)","Builder / Developer","Authorised agent / broker"]},
+      {n:"Agent / firm name",tp:"Text"},
+      {n:"RERA agent registration no.",tp:"Text",note:"Required for registered brokers under RERA"}
+    ]},
+    {t:"Contact details",fields:[
+      {n:"Primary mobile number",tp:"Phone",req:true},
+      {n:"WhatsApp number",tp:"Phone",note:"Leave blank if same as mobile — used for WATI broadcasts"},
+      {n:"Email address",tp:"Email"},
+      {n:"Preferred time to call",tp:"Checkbox",opts:["Morning (9–12)","Afternoon (12–4)","Evening (4–8)","Anytime"]},
+      {n:"Language preference",tp:"Checkbox",opts:["Gujarati","Hindi","English"]}
+    ]},
+    {t:"Site visit settings",fields:[
+      {n:"Site visits allowed",tp:"Toggle"},
+      {n:"Prior appointment required",tp:"Toggle"},
+      {n:"Available visit days",tp:"Checkbox",opts:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]},
+      {n:"Visit hours (from – to)",tp:"Time range"}
+    ]}
+  ]},
+  {id:13,title:"Review & publish",desc:"Final preview, SEO settings, listing status, and go-live",groups:[
+    {t:"Listing status",fields:[
+      {n:"Preview listing (public view)",tp:"Preview button",note:"Opens how the listing appears to buyers / tenants"},
+      {n:"Listing status",tp:"Radio",opts:["Draft — save without publishing","Active — publish now","Inactive — hidden from portal"]},
+      {n:"Listing tier",tp:"Select",opts:["Standard (free)","Featured (paid — homepage slot)","VIP Premium (paid — top of search)"]}
+    ]},
+    {t:"Validity & renewal",fields:[
+      {n:"Listing valid until",tp:"Date"},
+      {n:"Auto-renew listing",tp:"Toggle"},
+      {n:"Renewal reminder (days before expiry)",tp:"Number",note:"e.g. 7 or 15 days advance alert"}
+    ]},
+    {t:"SEO & URL",fields:[
+      {n:"URL slug",tp:"Text",note:"e.g. 2bhk-flat-sargasan-gandhinagar-for-sale"},
+      {n:"Meta title",tp:"Text",note:"Max 60 characters — used in Google search results"},
+      {n:"Meta description",tp:"Textarea",note:"Max 160 characters"},
+      {n:"Property highlights (key selling points)",tp:"Textarea",note:"3–5 bullet points for featured snippets"}
+    ]},
+    {t:"Admin / internal",fields:[
+      {n:"Assigned agent / salesperson",tp:"Dropdown",note:"Internal team assignment"},
+      {n:"Lead source tag",tp:"Select",opts:["Walk-in","WhatsApp","Website form","99acres","Housing.com","MagicBricks","Instagram / Meta","Referral","Cold call"]},
+      {n:"Priority / hot property flag",tp:"Toggle"},
+      {n:"Admin notes",tp:"Textarea"},
+      {n:"Publish listing",tp:"Submit button",req:true}
+    ]}
+  ]}
+];
+
+let cur=0;
+
+function render(){
+  const s=steps[cur];
+  document.getElementById('slbl').textContent=`Step ${cur+1} of ${steps.length} — ${s.title}`;
+  document.getElementById('progpct').textContent=`${Math.round(((cur+1)/steps.length)*100)}% complete`;
+
+  const dots=document.getElementById('pdots');
+  dots.innerHTML=steps.map((_,i)=>`<div style="width:${i===cur?14:5}px;height:5px;border-radius:3px;background:${i===cur?'var(--color-text-info)':i<cur?'var(--color-border-primary)':'var(--color-border-tertiary)'};transition:all .25s"></div>`).join('');
+
+  let phHTML='';
+  let si=0;
+  phases.forEach(ph=>{
+    phHTML+=`<div class="phase-label">${ph.label}</div>`;
+    ph.steps.forEach(sid=>{
+      const idx=sid-1;
+      phHTML+=`<div class="si ${idx===cur?'act':idx<cur?'done':''}" onclick="goTo(${idx})"><div class="snum">${sid}</div><span>${steps[idx].title}</span></div>`;
+      si++;
+    });
+  });
+  document.getElementById('sidebar').innerHTML=phHTML;
+
+  let html=`<div style="margin-bottom:16px"><div style="font-size:15px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px">${s.title}</div><div style="font-size:12px;color:var(--color-text-secondary)">${s.desc}</div></div>`;
+
+  if(s.special==='subtypes'){
+    html+=`<div style="margin-bottom:10px;display:flex;gap:6px;flex-wrap:wrap">
+      <span class="stepr res">Residential → 10 types</span>
+      <span class="stepr com">Commercial → 10 types</span>
+      <span class="stepr plot">Plot / Land → 5 types</span>
+    </div>`;
+    html+='<div class="branch-grid">';
+    const bcolors={'Residential':'var(--color-text-info)','Commercial':'var(--color-text-warning)','Plot / Land':'var(--color-text-success)','Agricultural':'var(--color-text-secondary)'};
+    Object.entries(s.branches).forEach(([br,items])=>{
+      html+=`<div class="branch-col"><h4 style="color:${bcolors[br]}">${br}</h4>${items.map(it=>`<div class="bitem">${it}</div>`).join('')}</div>`;
+    });
+    html+='</div>';
+    html+=`<div style="margin-top:12px;padding:9px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);font-size:12px;color:var(--color-text-secondary)">
+      Sub-type determines which fields appear in steps 5–9 — residential shows BHK config, commercial shows ceiling height and frontage, plots show boundary and floor allowance.
+    </div>`;
+  } else {
+    s.groups.forEach(g=>{
+      html+=`<div class="fgroup"><div class="fgroup-title">${g.t}</div>`;
+      g.fields.forEach(f=>{
+        html+=`<div class="frow"><div class="fname">${f.n}${f.req?'<span class="req">required</span>':''}${f.note?`<span class="fnote">${f.note}</span>`:''}${f.opts?`<div class="fopts">${f.opts.map(o=>`<span class="ftag">${o}</span>`).join('')}</div>`:''}</div><div class="ftype">${f.tp}</div></div>`;
+      });
+      html+=`</div>`;
+    });
+  }
+
+  document.getElementById('content').innerHTML=html;
+  document.getElementById('pbtn').disabled=cur===0;
+  document.getElementById('nbtn').textContent=cur===steps.length-1?'Publish ✓':'Next step →';
+}
+
+function nav(d){cur=Math.max(0,Math.min(steps.length-1,cur+d));render();}
+function goTo(i){cur=i;render();}
+render();
+</script>
